@@ -8,7 +8,7 @@ const posts = [
   {
     id: 1,
     author: {
-      avatarUrl: '/avatar.png',
+      avatarUrl: '/avatar.gif',
       name: 'Rafael de Abreu',
       role: 'Frontend Developer'
     },
@@ -22,7 +22,7 @@ const posts = [
   {
     id: 2,
     author: {
-      avatarUrl: '/610px-TUX-G2-SVG.svg.png',
+      avatarUrl: '/michael-avatar.gif',
       name: 'Michaeld Ronald',
       role: 'Backend Developer'
     },

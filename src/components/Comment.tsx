@@ -5,8 +5,14 @@ import { format, formatDistanceToNow, addMinutes } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR'
 import styles from './Comment.module.css'
 
-interface CommentProps {
+interface Comment {
     comment: string;
+    author: string;
+    avatar: string;
+}
+
+interface CommentProps {
+    comment: Comment;
     date: Date;
     onDeleteComment: (comment: string) => void;
 }
@@ -27,7 +33,7 @@ export function Comment({comment, date, onDeleteComment}: CommentProps) {
     }, []);
 
     function handleDeleteComment(){
-        onDeleteComment(comment);
+        onDeleteComment(comment.comment);
     };
 
     function handleLikeCount (){
@@ -45,13 +51,13 @@ export function Comment({comment, date, onDeleteComment}: CommentProps) {
 
     return (
         <div className={styles.comment}>
-            <Avatar hasBorder={false} src="/avatar-comment.jpg" alt="" />
+            <Avatar hasBorder={false} src={comment.avatar} alt="" />
 
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>
                         <div className={styles.authorAndTime}>
-                            <strong>Rafael de Abreu</strong>
+                            <strong>{comment.author}</strong>
                             <time dateTime="2023-01-01" title={publishedDateFormatted}>{publishedDateRelativeToNow}</time>
                         </div>
 
@@ -59,7 +65,7 @@ export function Comment({comment, date, onDeleteComment}: CommentProps) {
                             <Trash size={24}/>
                         </button>
                     </header>
-                    <p>{comment}</p>
+                    <p>{comment.comment}</p>
                 </div>
                 <footer>
                     <button onClick={handleLikeCount}>

@@ -24,7 +24,7 @@ interface PostProps {
 };
 
 export function Post({author, publishedAt, content}: PostProps){
-    const [comments, setComments] = useState(['Post muito bacana, hein?']);
+    const [comments, setComments] = useState([{comment:'Post muito bacana, hein?', author: 'Rafael de Abreu', avatar: '/avatar.gif'}]);
     const [newCommenText, setNewCommentText] = useState('');
 
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'",{
@@ -40,7 +40,7 @@ export function Post({author, publishedAt, content}: PostProps){
     function handleCreateNewComment(event: FormEvent){
         event.preventDefault();
         const copyComments = comments;
-        copyComments.unshift(newCommenText)
+        copyComments.unshift({comment: newCommenText, author: '(Você)', avatar: '/comment-avatar.gif'})
         setComments(copyComments);
         setNewCommentText('')
     };
@@ -50,14 +50,14 @@ export function Post({author, publishedAt, content}: PostProps){
     };
 
     function deleteComment(commentToDelete: string){
-        const commentsWithoutDeletedOne = comments.filter(comment => comment !== commentToDelete);
+        const commentsWithoutDeletedOne = comments.filter(comment => comment.comment !== commentToDelete);
         setComments(commentsWithoutDeletedOne);
     };
 
     function handleKeySubmit(event: React.KeyboardEvent<HTMLTextAreaElement>){
         if(event.code === 'Enter' || event.code === 'NumpadEnter'){
             const copyComments = comments;
-            copyComments.unshift(newCommenText)
+            copyComments.unshift({comment: newCommenText, author: '(Você)', avatar: '/comment-avatar.gif'})
             setComments(copyComments);
             setNewCommentText('')
         }
@@ -103,7 +103,7 @@ export function Post({author, publishedAt, content}: PostProps){
                 {comments.map(comment=> {
                     return (
                         <Comment 
-                            key={comment}
+                            key={comment.comment}
                             comment={comment} 
                             date={new Date()}
                             onDeleteComment={deleteComment} 
